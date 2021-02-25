@@ -1,0 +1,4 @@
+
+set border 0
+
+exec xterm
