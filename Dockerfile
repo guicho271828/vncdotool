@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 RUN apt-get -y update && apt-get install -y tightvncserver ratpoison
+RUN apt-get install -y xterm
 RUN echo "tzdata tzdata/Areas select America" > ~/tx.txt && \
 	echo "tzdata tzdata/Zones/America select New York" >> ~/tx.txt && \
 	debconf-set-selections ~/tx.txt

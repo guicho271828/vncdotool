@@ -2,19 +2,21 @@
 
 import argparse
 import multiprocessing as mp
+import datetime
 from vncdotool import api
+import numpy as np
+import random
+import time
 
 def task(host,port,password):
     conn = api.connect(f"{host}::{port}", password)
-    conn.mouseMove(100,100)
-    conn.mouseDown(1)
-    conn.mouseMove(200,100)
-    conn.mouseDown(1)
-    conn.mouseMove(100,200)
-    conn.mouseDown(1)
-    conn.mouseMove(200,200)
-    conn.mouseDown(1)
-    conn.refreshScreen()
+    for _ in range(10):
+        conn.mouseMove(random.randint(0,800),
+                       random.randint(0,600))
+        time.sleep(1)
+        conn.mouseDown(1)
+        time.sleep(1)
+    conn.captureScreen(datetime.datetime.now().isoformat(timespec='milliseconds')+".png")
     screen = np.asarray(conn.screen)
     return screen
 
@@ -30,34 +32,6 @@ if __name__ == '__main__':
         results = p.starmap(
             task,
             [["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
-             ["localhost","5902","password1"],
-             ["localhost","5903","password1"],
-             ["localhost","5904","password1"],
-             ["localhost","5901","password1"],
              ["localhost","5902","password1"],
              ["localhost","5903","password1"],
              ["localhost","5904","password1"],])
